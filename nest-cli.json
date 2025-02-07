@@ -19,15 +19,6 @@
         "tsConfigPath": "apps/uber-services/tsconfig.app.json"
       }
     },
-    "logging-service": {
-      "type": "application",
-      "root": "apps/logging-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/logging-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/logging-service/tsconfig.app.json"
-      }
-    },
     "rider-service": {
       "type": "application",
       "root": "apps/rider-service",
@@ -35,6 +26,15 @@
       "sourceRoot": "apps/rider-service/src",
       "compilerOptions": {
         "tsConfigPath": "apps/rider-service/tsconfig.app.json"
+      }
+    },
+    "logging": {
+      "type": "application",
+      "root": "apps/logging",
+      "entryFile": "main",
+      "sourceRoot": "apps/logging/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/logging/tsconfig.app.json"
       }
     }
   }
