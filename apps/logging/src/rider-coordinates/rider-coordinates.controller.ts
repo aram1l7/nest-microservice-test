@@ -6,8 +6,8 @@ import { RiderCoordinatesService } from './rider-coordinates.service';
 export class RiderCoordinatesController {
     constructor(private coordinatsService: RiderCoordinatesService){}
     @Get()
-    getRiderCoordinates(){
-        return 'Hello I am from rider coordinates'
+    async getRiderCoordinates(){
+        return this.coordinatsService.getRiderCoordiantes();
     }
     @Post()
     async saveRiderCoordiantes(

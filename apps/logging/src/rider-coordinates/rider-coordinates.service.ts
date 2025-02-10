@@ -10,6 +10,13 @@ export class RiderCoordinatesService {
         @InjectModel(RiderCoordinate.name)
         private readonly riderCoodinateModel : Model<RiderCoordinate>
     ){}
+
+    async getRiderCoordiantes() {
+      return await this.riderCoodinateModel.find()
+      // communicate with rider microservice by uisng the rider id
+
+      // communication can be happened, TCP, RabbitMQ, Kafka, Nats
+    }
     async saveRiderCoordiantes(createCoordinateDTO: CraeteCoordinatesDTO) {
         return await this.riderCoodinateModel.create(createCoordinateDTO)
     }
