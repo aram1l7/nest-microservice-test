@@ -18,6 +18,9 @@ export class RiderCoordinatesService {
         try {
             const coordinates = await this.riderCoodinateModel.find({ rider: riderId });
             console.log('coordinates', coordinates)
+            if (!Array.isArray(coordinates) || !coordinates.length) {
+                throw new Error('No coordinates found')
+            }
             const pattern = { cmd: 'get-rider' };
             const payload = { id: riderId }
             const rider = await firstValueFrom(this.client.send(pattern, payload));
@@ -30,6 +33,7 @@ export class RiderCoordinatesService {
         }
     }
     async saveRiderCoordiantes(createCoordinateDTO: CraeteCoordinatesDTO) {
+        console.log('createCoordinateDTO',createCoordinateDTO)
         return await this.riderCoodinateModel.create(createCoordinateDTO)
     }
 }

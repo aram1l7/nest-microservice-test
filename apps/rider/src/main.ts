@@ -6,7 +6,14 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     RiderModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.RMQ,
+      options: {
+       urls: ['amqp://localhost:5672'],
+       queue: 'rider_queue',
+       queueOptions: { 
+        durable: false 
+       },
+      }
     },
   );
   await app.listen();

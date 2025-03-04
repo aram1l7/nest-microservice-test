@@ -1,6 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller} from '@nestjs/common';
 import { RiderService } from './rider.service';
-import { MessagePattern } from '@nestjs/microservices';
+import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
 
 @Controller('rider')
 export class RiderController {
@@ -11,9 +11,15 @@ export class RiderController {
   async getRiderById(
     // @Param()
     // params: any
-    data: any
+    @Payload()
+    data: any,
+    @Ctx() 
+    context: RmqContext
   ) {
-    console.log(data)
+    console.log(`Pattern: ${context.getPattern()}`);
+    console.log(`Message`, JSON.stringify(context.getMessage()));
+    console.log('Channel', context.getChannelRef());
+    /// db request to fetch the rider details from the db based on rider id
     return Promise.resolve({ id: data.id, firstName: 'Jane', lastName: 'Doe', email: 'jane@gmail.com' })
   }
 }
