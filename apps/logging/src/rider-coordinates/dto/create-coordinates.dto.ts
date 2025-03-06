@@ -10,7 +10,7 @@ export class CraeteCoordinatesDTO {
     @IsNotEmpty()
     lat: number;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
-    rider: string;
+    rider: number;
 }

@@ -12,7 +12,7 @@ export class RiderCoordinate {
     lng: number;
 
     @Prop({required: true})
-    rider: string;
+    rider: number;
 }
 
 export const RiderCoordinateSchema = SchemaFactory.createForClass(RiderCoordinate)

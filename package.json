@@ -58,7 +58,10 @@
     "@swc/core": "^1.11.5",
     "swc-loader": "^0.2.6",
     "amqp-connection-manager": "^4.1.14",
-    "amqplib": "^0.10.5"
+    "amqplib": "^0.10.5",
+    "@nestjs/typeorm": "^11.0.0",
+    "pg": "^8.13.3",
+    "typeorm": "^0.3.21"
   },
   "jest": {
     "moduleFileExtensions": [

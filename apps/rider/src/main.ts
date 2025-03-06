@@ -1,10 +1,16 @@
 import { NestFactory } from '@nestjs/core';
-import { RiderModule } from './rider.module';
+import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    RiderModule,
+
+  const app = await NestFactory.create(AppModule);
+  app.enableCors(); // Enable CORS if needed
+  await app.listen(3003); 
+
+
+  const microservice = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
     {
       transport: Transport.RMQ,
       options: {
@@ -16,6 +22,6 @@ async function bootstrap() {
       }
     },
   );
-  await app.listen();
+  await microservice.listen();
 }
 bootstrap();
