@@ -1,23 +1,27 @@
 ### GET RIDER COORDINATES
-GET http://localhost:3002/rider-coordinates/1
+GET http://localhost:3000/riders/coordinates/1
 
 ### POST RIDER COORDINATES
-POST http://localhost:3002/rider-coordinates
+POST http://localhost:3000/riders/coordinates
 Content-Type: application/json
 
 {
-    "lat": 5555.23,
-    "lng": 4444434.23,
+    "lat": 3333.23,
+    "lng": 333333.23,
     "rider": 1
 }
 
 ### CREATE RIDER
-POST http://localhost:3003/rider
+POST http://localhost:3000/riders
 Content-Type: application/json
 
 {
-    "firstName": "Jane",
-    "lastName": "Doe",
-    "email" : "jane@gmail.com"
+    "firstName": "Polaa",
+    "lastName": "Smith",
+    "email" : "plat@gmail.com"
 
 }
+
+
+### API GATEWAY
+GET http://localhost:3000/riders/2

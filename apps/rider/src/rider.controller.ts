@@ -8,10 +8,16 @@ import { Rider } from './rider.entity';
 export class RiderController {
   constructor(private readonly riderService: RiderService) {}
 
-  @Post()
-  create(@Body() createRiderDTO: CreateRiderDTO): Promise<Rider> {
-    return this.riderService.create(createRiderDTO);
+  @MessagePattern({ cmd: 'create-rider' })
+  create(
+    @Payload()
+    data: CreateRiderDTO,
+    @Ctx()
+    context: RmqContext
+  ): Promise<Rider> {
+    return this.riderService.create(data);
   }
+
 
   // @Get(':id')
   @MessagePattern({ cmd: 'get-rider' })
@@ -23,11 +29,9 @@ export class RiderController {
     @Ctx() 
     context: RmqContext
   ) {
-    console.log(`Pattern: ${context.getPattern()}`);
-    console.log(`Message`, JSON.stringify(context.getMessage()));
-    console.log('Channel', context.getChannelRef());
-    /// db request to fetch the rider details from the db based on rider id
-    // return Promise.resolve({ id: data.id, firstName: 'Jane', lastName: 'Doe', email: 'jane@gmail.com' })
+    // console.log(`Pattern: ${context.getPattern()}`);
+    // console.log(`Message`, JSON.stringify(context.getMessage()));
+    // console.log('Channel', context.getChannelRef());
     return await this.riderService.findById(data.id);
   }
 }

@@ -1,21 +1,23 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {  Controller  } from '@nestjs/common';
 import { CraeteCoordinatesDTO } from './dto/create-coordinates.dto';
 import { RiderCoordinatesService } from './rider-coordinates.service';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller('rider-coordinates')
 export class RiderCoordinatesController {
     constructor(private coordinatsService: RiderCoordinatesService){}
-    @Get(":id")
+    
+    @MessagePattern({ cmd: 'getRiderCoordinates' })
     async getRiderCoordinates(
-        @Param()
-        params: any
+        @Payload()
+        params: {id: string}
     ){
         console.log('params', params)
         return this.coordinatsService.getRiderCoordiantes(params.id);
     }
-    @Post()
+    @MessagePattern({ cmd: 'saveRiderCoordinates' })
     async saveRiderCoordiantes(
-        @Body()
+        @Payload()
         createCoordinateDTO: CraeteCoordinatesDTO
     ){
         return this.coordinatsService.saveRiderCoordiantes(createCoordinateDTO)

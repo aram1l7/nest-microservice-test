@@ -4,12 +4,8 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
 
-  const app = await NestFactory.create(AppModule);
-  app.enableCors(); // Enable CORS if needed
-  await app.listen(3003); 
 
-
-  const microservice = await NestFactory.createMicroservice<MicroserviceOptions>(
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.RMQ,
@@ -22,6 +18,6 @@ async function bootstrap() {
       }
     },
   );
-  await microservice.listen();
+  await app.listen();
 }
 bootstrap();
