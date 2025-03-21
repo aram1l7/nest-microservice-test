@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Req, UseGuards } from '@nestjs/common';
 import { ApiGatewayService } from './api-gateway.service';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class ApiGatewayController {
-  constructor(private readonly apiGatewayService: ApiGatewayService) {}
+  constructor(
+    private readonly apiGatewayService: ApiGatewayService,
+    private readonly authService:  AuthService
+    ) {}
 
   
   @Post('/riders')
@@ -38,4 +43,24 @@ export class ApiGatewayController {
     console.log('param', param)
     return this.apiGatewayService.getRiderCoordinates(parseInt(param.id,10))
   }
+
+  /**
+   * AUTH ROUTES
+   */
+  @Post('/auth/register')
+  register(@Body() user: any) {
+    return this.authService.register(user);
+  }
+
+  @Post('/auth/login')
+  login(@Body() credentials: any) {
+    return this.authService.login(credentials);
+  }
+
+  @Get('/auth/profile')
+  @UseGuards(AuthGuard)
+  async getRiderProfile(@Req() req) {
+    return this.apiGatewayService.getRider({ id: req.user.userId })
+  }
+
 }

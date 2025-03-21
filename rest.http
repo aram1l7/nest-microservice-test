@@ -25,3 +25,30 @@ Content-Type: application/json
 
 ### API GATEWAY
 GET http://localhost:3000/riders/2
+
+### AUTH ROUTES
+
+### Signup
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "new_user13642@gmail.com",
+    "password": "123123adasd"
+}
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "new_user13642@gmail.com",
+    "password": "123123adasd"
+}
+
+
+
+### Profile
+POST http://localhost:3000/auth/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoibmV3X3VzZXIxMzY0MkBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDkzNjIsImV4cCI6MTc0MjUxMjk2Mn0.MW23PcOejKEUUhO27vQE8K2TWKjUhX9iviANxwwzh8M
