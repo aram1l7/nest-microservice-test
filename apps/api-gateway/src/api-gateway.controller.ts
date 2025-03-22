@@ -19,6 +19,7 @@ export class ApiGatewayController {
   // }
 
   @Get('/riders/:id')
+  @UseGuards(AuthGuard)
   async getRider(
     @Param() payload: any
   ) {

@@ -25,6 +25,7 @@ Content-Type: application/json
 
 ### API GATEWAY
 GET http://localhost:3000/riders/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImVtYWlsIjoibWFsaWtfa2hhbkBnbWFpbC5jb20iLCJpYXQiOjE3NDI2ODMxMDIsImV4cCI6MTc0MjY4NjcwMn0.QnokJL4mtqZ0gRZjRIrUK8FkLmwt__kSB5gHQxltiMg
 
 ### AUTH ROUTES
 
@@ -44,7 +45,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "new_user13642@gmail.com",
+   "email": "malik_khan@gmail.com",
     "password": "123123adasd"
 }
 
