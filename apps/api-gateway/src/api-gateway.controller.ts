@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Req, UseGuards } from '@nestjs/common';
 import { ApiGatewayService } from './api-gateway.service';
 import { AuthService } from './auth/auth.service';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from './auth/auth.guard';
 
 @Controller()
 export class ApiGatewayController {
@@ -11,12 +11,12 @@ export class ApiGatewayController {
     ) {}
 
   
-  @Post('/riders')
-  async createRider(
-    @Body() rider: any
-  ) {
-    return this.apiGatewayService.createRider(rider)
-  }
+  // @Post('/riders')
+  // async createRider(
+  //   @Body() rider: any
+  // ) {
+  //   return this.apiGatewayService.createRider(rider)
+  // }
 
   @Get('/riders/:id')
   async getRider(
@@ -60,6 +60,7 @@ export class ApiGatewayController {
   @Get('/auth/profile')
   @UseGuards(AuthGuard)
   async getRiderProfile(@Req() req) {
+    console.log('req.user', req.user);
     return this.apiGatewayService.getRider({ id: req.user.userId })
   }
 

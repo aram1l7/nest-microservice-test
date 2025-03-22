@@ -20,6 +20,7 @@ export class RiderService {
     rider.firstName = createUserDto.firstName;
     rider.lastName = createUserDto.lastName;
     rider.email = createUserDto.email;
+    rider.userId = createUserDto.userId;
 
     return this.riderRepository.save(rider);
   }

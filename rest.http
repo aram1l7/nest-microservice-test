@@ -33,7 +33,9 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "new_user13642@gmail.com",
+    "firstName": "Malik",
+    "lastName": "Khan",
+    "email": "malik_khan@gmail.com",
     "password": "123123adasd"
 }
 
@@ -49,6 +51,6 @@ Content-Type: application/json
 
 
 ### Profile
-POST http://localhost:3000/auth/profile
+GET http://localhost:3000/auth/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoibmV3X3VzZXIxMzY0MkBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDkzNjIsImV4cCI6MTc0MjUxMjk2Mn0.MW23PcOejKEUUhO27vQE8K2TWKjUhX9iviANxwwzh8M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoibmV3X3VzZXIxMzY0MkBnbWFpbC5jb20iLCJpYXQiOjE3NDI1OTY1NjUsImV4cCI6MTc0MjYwMDE2NX0.9HZZ50KmakR94bxUfRfvp8qeYgm2Dletcx4ka93Xl5g

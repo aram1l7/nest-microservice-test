@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -12,8 +13,10 @@ export class AuthGuard implements CanActivate {
     if (!authHeader) return false;
 
     const token = authHeader.split(' ')[1];
+    console.log('token', token);
     try {
-        const user = await this.authService.validateToken(token);
+        const user = await firstValueFrom(this.authService.validateToken(token))
+        console.log('user', user);
         request.user = user;
         return true;
     } catch {

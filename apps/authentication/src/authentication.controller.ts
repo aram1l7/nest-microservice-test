@@ -9,7 +9,7 @@ export class AuthenticationController {
   @MessagePattern({ cmd: 'register' })
   async register(
     @Payload()
-    data: {email: string, password: string},
+    data: {email: string, password: string, firstName: string, lastName: string, userId: number},
   ) {
     console.log('data in regsiter auth controller...', data)
     return this.authService.register(data);

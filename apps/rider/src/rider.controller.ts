@@ -15,6 +15,7 @@ export class RiderController {
     @Ctx()
     context: RmqContext
   ): Promise<Rider> {
+    console.log('data', data);
     return this.riderService.create(data);
   }
 

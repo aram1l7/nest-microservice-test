@@ -16,4 +16,7 @@ export class Rider {
 
     @Column({ default: true })
     isActive: boolean;
+
+    @Column({ unique: true, nullable: true }) // Ensure uniqueness
+    userId: number; // User ID from the Auth microservice
 }

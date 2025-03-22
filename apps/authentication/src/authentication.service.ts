@@ -1,17 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma';
 import * as bcrypt from 'bcryptjs';
 import { Prisma } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
+import { ClientProxy } from '@nestjs/microservices';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private prisma: PrismaService, private readonly jwtService: JwtService) { }
+  constructor(private prisma: PrismaService, private readonly jwtService: JwtService,
+     @Inject('RIDER_SERVICE') private riderService: ClientProxy) { }
   async register(userDTO: Prisma.UserCreateInput) {
     try {
       console.log('called authenticaton service register', userDTO)
       const hashedPassword = await bcrypt.hash(userDTO.password, 10);
       const user = await this.prisma.user.create({ data: { email: userDTO.email, password: hashedPassword } })
+      // call the rider microservice with create-rider command and we will provide
+      // firstName, lastName, and userId
+      const rider = await firstValueFrom(this.riderService.send({ cmd: 'create-rider' }, { userId: user.id, ...userDTO }))
+      console.log('rider', rider);
       return { email: user.email }
     } catch (error) {
       console.error('Error while registering user', error)
