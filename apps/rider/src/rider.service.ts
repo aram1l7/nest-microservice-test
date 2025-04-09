@@ -8,7 +8,7 @@ import { CreateRiderDTO } from './dto/create-rider.dto';
 export class RiderService {
   constructor(
     @InjectRepository(Rider)
-    private readonly riderRepository: Repository<Rider>
+    private readonly riderRepository: Repository<Rider>,
   ) {}
 
   async findById(id: any) {
@@ -24,7 +24,7 @@ export class RiderService {
 
     return this.riderRepository.save(rider);
   }
- 
+
   async findAll(): Promise<Rider[]> {
     return this.riderRepository.find();
   }

@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
-
+import {
+  ClientProxy,
+  ClientProxyFactory,
+  Transport,
+} from '@nestjs/microservices';
 
 @Injectable()
 export class ApiGatewayService {
@@ -19,7 +22,7 @@ export class ApiGatewayService {
         queueOptions: {
           durable: false,
         },
-      }
+      },
     });
     this.riderCoordinatesService = ClientProxyFactory.create({
       transport: Transport.RMQ,
@@ -29,13 +32,16 @@ export class ApiGatewayService {
         queueOptions: {
           durable: false,
         },
-      }
+      },
     });
   }
 
   getRider(payload: any) {
-    console.log('called rider microservice get-rider')
-    return this.riderService.send({ cmd: 'get-rider' }, { id: parseInt(payload.id, 10) });
+    console.log('called rider microservice get-rider');
+    return this.riderService.send(
+      { cmd: 'get-rider' },
+      { id: parseInt(payload.id, 10) },
+    );
   }
   createRider(rider: any) {
     return this.riderService.send({ cmd: 'create-rider' }, rider);
@@ -44,11 +50,16 @@ export class ApiGatewayService {
    * RIDER COORDINATES
    */
   createRiderCoordinate(rider: any) {
-    return this.riderCoordinatesService.send({ cmd: 'saveRiderCoordinates' }, rider);
-
+    return this.riderCoordinatesService.send(
+      { cmd: 'saveRiderCoordinates' },
+      rider,
+    );
   }
 
   getRiderCoordinates(id: number) {
-    return this.riderCoordinatesService.send({ cmd: 'getRiderCoordinates' }, { id });
+    return this.riderCoordinatesService.send(
+      { cmd: 'getRiderCoordinates' },
+      { id },
+    );
   }
 }

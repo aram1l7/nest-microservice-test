@@ -1,6 +1,6 @@
 export class CreateRiderDTO {
-    firstName: string;
-    lastName: string;
-    email: string;
-    userId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  userId: number;
 }

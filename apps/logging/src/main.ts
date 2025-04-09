@@ -14,7 +14,7 @@ async function bootstrap() {
         queueOptions: {
           durable: false,
         },
-      }
+      },
     },
   );
   app.useGlobalPipes(new ValidationPipe());

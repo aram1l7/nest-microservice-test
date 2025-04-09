@@ -20,10 +20,10 @@ import { JwtModule } from '@nestjs/jwt';
           urls: ['amqp://localhost:5672'],
           queue: 'rider_queue',
           queueOptions: {
-            durable: false
+            durable: false,
           },
         },
-      }
+      },
     ]),
   ],
   controllers: [AuthenticationController],

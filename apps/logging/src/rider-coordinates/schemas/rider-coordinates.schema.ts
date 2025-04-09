@@ -5,14 +5,15 @@ export type RiderCoordinateDocument = HydratedDocument<RiderCoordinate>;
 
 @Schema()
 export class RiderCoordinate {
-    @Prop({required: true})
-    lat: number;
+  @Prop({ required: true })
+  lat: number;
 
-    @Prop({required: true})
-    lng: number;
+  @Prop({ required: true })
+  lng: number;
 
-    @Prop({required: true})
-    rider: number;
+  @Prop({ required: true })
+  rider: number;
 }
 
-export const RiderCoordinateSchema = SchemaFactory.createForClass(RiderCoordinate)
+export const RiderCoordinateSchema =
+  SchemaFactory.createForClass(RiderCoordinate);

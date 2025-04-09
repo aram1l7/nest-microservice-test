@@ -1,6 +1,6 @@
-import { Body, Controller, Post} from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { RiderService } from './rider.service';
-import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateRiderDTO } from './dto/create-rider.dto';
 import { Rider } from './rider.entity';
 
@@ -12,13 +12,10 @@ export class RiderController {
   create(
     @Payload()
     data: CreateRiderDTO,
-    @Ctx()
-    context: RmqContext
   ): Promise<Rider> {
     console.log('data', data);
     return this.riderService.create(data);
   }
-
 
   // @Get(':id')
   @MessagePattern({ cmd: 'get-rider' })
@@ -27,8 +24,6 @@ export class RiderController {
     // params: any
     @Payload()
     data: any,
-    @Ctx() 
-    context: RmqContext
   ) {
     // console.log(`Pattern: ${context.getPattern()}`);
     // console.log(`Message`, JSON.stringify(context.getMessage()));
