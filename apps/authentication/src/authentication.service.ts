@@ -3,7 +3,7 @@ import { PrismaService } from './prisma';
 import * as bcrypt from 'bcryptjs';
 import { Prisma } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class AuthenticationService {
       return { email: user.email };
     } catch (error) {
       console.error('Error while registering user', error);
-      throw new Error(error);
+      throw new RpcException(error);
     }
   }
   async login(userDTO: Prisma.UserCreateInput) {
@@ -41,7 +41,7 @@ export class AuthenticationService {
         where: { email: userDTO.email },
       });
       if (!user || !(await bcrypt.compare(userDTO.password, user.password))) {
-        throw new Error('Invalid credentials');
+        throw new RpcException('Invalid credentials');
       }
 
       const token = this.jwtService.sign({
@@ -50,14 +50,26 @@ export class AuthenticationService {
       });
       return { access_token: token };
     } catch (error) {
-      throw new Error(error);
+      console.log(error, 'error');
+      throw new RpcException({
+        message: 'Invalid credentials',
+        statusCode: 403,
+      });
     }
   }
   async validateToken(token: string) {
     try {
       return this.jwtService.verify(token);
     } catch (err) {
-      throw new Error('Invalid token');
+      console.log(err, 'err');
+      if (err instanceof RpcException) {
+        throw err;
+      }
+
+      throw new RpcException({
+        message: 'Invalid token',
+        statusCode: 401,
+      });
     }
   }
 }

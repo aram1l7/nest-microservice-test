@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AuthenticationModule } from './authentication.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { AllRpcExceptionsFilter } from './rpcexception.filter';
+import '../../../tracing';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -16,6 +18,7 @@ async function bootstrap() {
       },
     },
   );
+  app.useGlobalFilters(new AllRpcExceptionsFilter());
   await app.listen();
   console.log('🚀 Authentication Microservice is running...');
 }

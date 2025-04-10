@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { LoggingModule } from './logging.module';
 import { ValidationPipe } from '@nestjs/common';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import '../../../tracing';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
