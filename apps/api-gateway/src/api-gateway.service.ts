@@ -4,10 +4,11 @@ import {
   ClientProxyFactory,
   Transport,
 } from '@nestjs/microservices';
+import axios from 'axios';
 
 @Injectable()
 export class ApiGatewayService {
-  createRiderCoordinates(coordinates: any) {
+  createRiderCoordinates() {
     throw new Error('Method not implemented.');
   }
   private riderService: ClientProxy;
@@ -34,6 +35,24 @@ export class ApiGatewayService {
         },
       },
     });
+  }
+
+  async getLocation(id: string) {
+    const res = await axios.get(`http://localhost:3003/location/${id}`);
+    return res.data;
+  }
+
+  async createLocation(data: any) {
+    const res = await axios.post(`http://localhost:3003/location`, data);
+    return res.data;
+  }
+
+  async sendMockData() {
+    const res = await axios.post(
+      `https://run.mocky.io/v3/dbdd2724-c069-4382-b6aa-6934a3e7c72e`,
+      {},
+    );
+    return res.data;
   }
 
   getRider(payload: any) {

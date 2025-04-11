@@ -1,24 +1,24 @@
-version : '3.1'
+version: '3.1'
 
 # MongoDB, Postgres, Redis, Elasticsearch, Kibana, Mysql, Postgres
-services: 
-  mongo: 
+services:
+  mongo:
     image: mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     ports:
-    - 27017:27017
+      - 27017:27017
     volumes:
       - mongo_data:/data/db # Persistent storage for MongoDB
-     
+
   rabbitmq:
     image: rabbitmq:3-management
     restart: always
     ports:
-    - 5672:5672
-    - 15672:15672
+      - 5672:5672
+      - 15672:15672
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
@@ -48,6 +48,20 @@ services:
       - 5434:5432
     volumes:
       - postgres_auth_data:/var/lib/postgresql/data
+
+  datadog:
+    image: datadog/agent:latest
+    environment:
+      - DD_API_KEY=${DATADOG_API_KEY}
+      - DD_SITE=datadoghq.eu
+      - DD_APM_ENABLED=true
+      - DD_LOGS_ENABLED=true
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+    ports:
+      - '8126:8126' # APM endpoint
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
 volumes:
   mongo_data: # Named volume for MongoDB
   rabbitmq_data: # Named volume for RabbitMQ

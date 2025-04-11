@@ -18,13 +18,6 @@ export class ApiGatewayController {
     private readonly authService: AuthService,
   ) {}
 
-  // @Post('/riders')
-  // async createRider(
-  //   @Body() rider: any
-  // ) {
-  //   return this.apiGatewayService.createRider(rider)
-  // }
-
   @Get('/riders/:id')
   @UseGuards(AuthGuard)
   async getRider(@Param() payload: any) {
@@ -32,9 +25,6 @@ export class ApiGatewayController {
     return this.apiGatewayService.getRider(payload);
   }
 
-  /**
-   * RIDER COORDINATES ROUTES
-   */
   @Post('/riders/coordinates')
   async createRiderCoordinates(@Body() coordinates: any) {
     return this.apiGatewayService.createRiderCoordinate(coordinates);
@@ -46,9 +36,6 @@ export class ApiGatewayController {
     return this.apiGatewayService.getRiderCoordinates(parseInt(param.id, 10));
   }
 
-  /**
-   * AUTH ROUTES
-   */
   @Post('/auth/register')
   register(@Body() user: any) {
     return this.authService.register(user);
@@ -64,5 +51,20 @@ export class ApiGatewayController {
   async getRiderProfile(@Req() req) {
     console.log('req.user', req.user);
     return this.apiGatewayService.getRider({ id: req.user.userId });
+  }
+
+  @Get('/location/:id')
+  async getLocationById(@Param() param: any) {
+    return this.apiGatewayService.getLocation(param.id);
+  }
+
+  @Post('/location')
+  async createLocation(@Body() data) {
+    return this.apiGatewayService.createLocation(data);
+  }
+
+  @Post('/send-mock')
+  async sendMock() {
+    return this.apiGatewayService.sendMockData();
   }
 }

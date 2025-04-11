@@ -1,8 +1,8 @@
+import './tracer';
 import { NestFactory } from '@nestjs/core';
 import { AuthenticationModule } from './authentication.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AllRpcExceptionsFilter } from './rpcexception.filter';
-import '../../../tracing';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
