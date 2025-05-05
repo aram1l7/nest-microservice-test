@@ -20,8 +20,7 @@ export class AuthenticationService {
       const user = await this.prisma.user.create({
         data: { email: userDTO.email, password: hashedPassword },
       });
-      // call the rider microservice with create-rider command and we will provide
-      // firstName, lastName, and userId
+
       const rider = await firstValueFrom(
         this.riderService.send(
           { cmd: 'create-rider' },
@@ -40,6 +39,8 @@ export class AuthenticationService {
       const user = await this.prisma.user.findUnique({
         where: { email: userDTO.email },
       });
+
+      console.log(user, 'user');
       if (!user || !(await bcrypt.compare(userDTO.password, user.password))) {
         throw new RpcException('Invalid credentials');
       }
