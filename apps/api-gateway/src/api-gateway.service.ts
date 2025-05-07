@@ -44,6 +44,7 @@ export class ApiGatewayService {
 
   async createLocation(data: any) {
     const res = await axios.post(`http://localhost:3003/location`, data);
+    console.log(res.data, 'data');
     return res.data;
   }
 
