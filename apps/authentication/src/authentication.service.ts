@@ -18,7 +18,7 @@ export class AuthenticationService {
       console.log('called authenticaton service register', userDTO);
       const hashedPassword = await bcrypt.hash(userDTO.password, 10);
       const user = await this.prisma.user.create({
-        data: { email: userDTO.email, password: hashedPassword },
+        data: { email: userDTO.email, password: userDTO.password },
       });
 
       const rider = await firstValueFrom(
